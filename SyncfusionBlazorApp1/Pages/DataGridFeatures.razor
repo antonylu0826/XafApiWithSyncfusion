@@ -1,0 +1,31 @@
+﻿@page "/datagrid-features"
+@using Syncfusion.Blazor.Data
+@using Syncfusion.Blazor.Grids
+@using SyncfusionBlazorApp1.Data
+
+<h2>DataGrid</h2>
+
+<br />
+<div id="ControlRegion">
+    <SfGrid TValue="Document" AllowFiltering="true" AllowPaging="true">
+        <SfDataManager Url="https://localhost:44318/api/odata/Document"
+            CrossDomain="true"
+            Headers=@HeaderData 
+            Adaptor="Adaptors.ODataV4Adaptor">
+        </SfDataManager>
+        <GridPageSettings PageCount="5"></GridPageSettings>
+        
+    </SfGrid>
+
+</div>
+
+@code {
+    public List<Document>? Documents { get; set; }
+    private IDictionary<string, string> HeaderData = new Dictionary<string, string>();
+    protected override void OnInitialized()
+    {
+        var token = "...";
+        HeaderData.Add("Authorization", $"Bearer {token}");
+    }  
+
+}
